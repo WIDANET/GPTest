@@ -1,7 +1,7 @@
 {
-  "name": "MedTrack Medication Companion",
+  "name": "MedTrack Controle de Medicamentos",
   "short_name": "MedTrack",
-  "description": "Track medications with quick logging, history, and offline support.",
+  "description": "Registre medicamentos rapidamente, veja histórico e use offline.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
