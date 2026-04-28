@@ -1,19 +1,41 @@
-const historyItems = [
-  { medication: 'Metformin', time: '7:58 AM', status: 'Taken' },
-  { medication: 'Omega 3', time: '12:06 PM', status: 'Taken' },
-  { medication: 'Vitamin D', time: '8:10 PM', status: 'Taken' }
-];
+import type { Medication, MedicationLog } from '../types';
 
-export function History() {
+type HistoryProps = {
+  medications: Medication[];
+  logs: MedicationLog[];
+};
+
+const formatDate = (isoDate: string) =>
+  new Date(isoDate).toLocaleString([], {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit'
+  });
+
+export function History({ medications, logs }: HistoryProps) {
+  if (logs.length === 0) {
+    return (
+      <section className="empty-state">
+        <h2>No history yet</h2>
+        <p>When you log a dose, it will appear here with date and time.</p>
+      </section>
+    );
+  }
+
+  const medicationsById = new Map(medications.map((medication) => [medication.id, medication]));
+
+  const sortedLogs = [...logs].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
   return (
-    <section>
-      <h2>Recent History</h2>
+    <section className="stack-lg">
+      <h2 className="section-title">Log History</h2>
       <ul className="history-list">
-        {historyItems.map((item) => (
-          <li key={`${item.medication}-${item.time}`} className="card">
-            <strong>{item.medication}</strong>
-            <span>{item.time}</span>
-            <span>{item.status}</span>
+        {sortedLogs.map((log) => (
+          <li key={log.id} className="history-item">
+            <strong>{medicationsById.get(log.medicationId)?.name ?? 'Unknown medication'}</strong>
+            <span>{formatDate(log.timestamp)}</span>
           </li>
         ))}
       </ul>

@@ -1,17 +1,23 @@
-export function Settings() {
+type SettingsProps = {
+  onResetAllData: () => void;
+};
+
+export function Settings({ onResetAllData }: SettingsProps) {
   return (
-    <section>
-      <h2>Settings</h2>
-      <div className="card-grid">
-        <article className="card">
-          <h3>Reminders</h3>
-          <p>Enable push reminders when notifications are granted.</p>
-        </article>
-        <article className="card">
-          <h3>Offline mode</h3>
-          <p>Recent activity is cached to keep the app usable offline.</p>
-        </article>
-      </div>
+    <section className="stack-lg">
+      <h2 className="section-title">Settings</h2>
+      <article className="card">
+        <h3>Offline support</h3>
+        <p>The app keeps your saved medications and logs available when offline.</p>
+      </article>
+
+      <article className="card stack-sm">
+        <h3>Data</h3>
+        <p>Clear all medications and logs from this device.</p>
+        <button type="button" className="danger-button" onClick={onResetAllData}>
+          Reset all data
+        </button>
+      </article>
     </section>
   );
 }
