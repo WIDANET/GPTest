@@ -6,15 +6,15 @@ type BottomNavProps = {
 };
 
 const tabs: { key: TabKey; label: string; emoji: string }[] = [
-  { key: 'dashboard', label: 'Home', emoji: '🏠' },
-  { key: 'medication', label: 'Dose', emoji: '💊' },
-  { key: 'history', label: 'History', emoji: '📋' },
-  { key: 'settings', label: 'Settings', emoji: '⚙️' }
+  { key: 'dashboard', label: 'Início', emoji: '🏠' },
+  { key: 'medication', label: 'Cadastro', emoji: '➕' },
+  { key: 'history', label: 'Histórico', emoji: '📋' },
+  { key: 'settings', label: 'Ajustes', emoji: '⚙️' }
 ];
 
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   return (
-    <nav className="bottom-nav" aria-label="Primary tabs">
+    <nav className="bottom-nav" aria-label="Abas principais">
       {tabs.map((tab) => (
         <button
           key={tab.key}
