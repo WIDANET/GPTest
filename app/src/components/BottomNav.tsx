@@ -7,7 +7,7 @@ type BottomNavProps = {
 
 const tabs: { key: TabKey; label: string; emoji: string }[] = [
   { key: 'dashboard', label: 'Home', emoji: '🏠' },
-  { key: 'medication', label: 'Dose', emoji: '💊' },
+  { key: 'medication', label: 'Add', emoji: '➕' },
   { key: 'history', label: 'History', emoji: '📋' },
   { key: 'settings', label: 'Settings', emoji: '⚙️' }
 ];
