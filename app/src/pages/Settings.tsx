@@ -5,17 +5,17 @@ type SettingsProps = {
 export function Settings({ onResetAllData }: SettingsProps) {
   return (
     <section className="stack-lg">
-      <h2 className="section-title">Settings</h2>
+      <h2 className="section-title">Configurações</h2>
       <article className="card">
-        <h3>Offline support</h3>
-        <p>The app keeps your saved medications and logs available when offline.</p>
+        <h3>Modo offline</h3>
+        <p>O aplicativo mantém os dados salvos no aparelho para funcionar sem internet.</p>
       </article>
 
       <article className="card stack-sm">
-        <h3>Data</h3>
-        <p>Clear all medications and logs from this device.</p>
+        <h3>Dados</h3>
+        <p>Apague todos os medicamentos e registros salvos neste dispositivo.</p>
         <button type="button" className="danger-button" onClick={onResetAllData}>
-          Reset all data
+          Limpar todos os dados
         </button>
       </article>
     </section>

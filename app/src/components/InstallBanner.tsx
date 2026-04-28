@@ -45,10 +45,10 @@ export function InstallBanner() {
   };
 
   return (
-    <section className="install-banner" aria-label="Install app prompt">
-      <p>Install MedTrack for quick access and offline use.</p>
+    <section className="install-banner" aria-label="Sugestão de instalação do aplicativo">
+      <p>Instale o MedTrack para acesso rápido e uso sem internet.</p>
       <button onClick={onInstall} type="button">
-        Install app
+        Instalar app
       </button>
     </section>
   );

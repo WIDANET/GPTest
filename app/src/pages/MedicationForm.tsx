@@ -30,9 +30,9 @@ export function MedicationForm({ onCreateMedication }: MedicationFormProps) {
 
     onCreateMedication({
       name: form.name.trim(),
-      dosage: form.dosage.trim() || 'Not specified',
-      frequency: form.frequency.trim() || 'Not specified',
-      schedule: form.schedule.trim() || 'Not specified',
+      dosage: form.dosage.trim() || 'Não informado',
+      frequency: form.frequency.trim() || 'Não informado',
+      schedule: form.schedule.trim() || 'Não informado',
       goalDays: goalDaysNumber
     });
 
@@ -41,47 +41,47 @@ export function MedicationForm({ onCreateMedication }: MedicationFormProps) {
 
   return (
     <section className="stack-lg">
-      <h2 className="section-title">Add Medication</h2>
+      <h2 className="section-title">Cadastrar medicamento</h2>
       <form className="form-grid" onSubmit={handleSubmit}>
         <label>
-          Name
+          Nome
           <input
             type="text"
             value={form.name}
             onChange={(event) => updateField('name', event.target.value)}
-            placeholder="e.g., Metformin"
+            placeholder="Ex.: Metformina"
             required
           />
         </label>
         <label>
-          Dosage
+          Dosagem
           <input
             type="text"
             value={form.dosage}
             onChange={(event) => updateField('dosage', event.target.value)}
-            placeholder="e.g., 500 mg"
+            placeholder="Ex.: 500 mg"
           />
         </label>
         <label>
-          Frequency
+          Frequência
           <input
             type="text"
             value={form.frequency}
             onChange={(event) => updateField('frequency', event.target.value)}
-            placeholder="e.g., Once daily"
+            placeholder="Ex.: 1x ao dia"
           />
         </label>
         <label>
-          Schedule
+          Rotina/horário
           <input
             type="text"
             value={form.schedule}
             onChange={(event) => updateField('schedule', event.target.value)}
-            placeholder="e.g., After breakfast"
+            placeholder="Ex.: Após o café da manhã"
           />
         </label>
         <label>
-          Goal (days)
+          Meta (dias)
           <input
             type="number"
             min={1}
@@ -91,7 +91,7 @@ export function MedicationForm({ onCreateMedication }: MedicationFormProps) {
           />
         </label>
 
-        <button type="submit" className="primary-button">Save medication</button>
+        <button type="submit" className="primary-button">Salvar medicamento</button>
       </form>
     </section>
   );

@@ -9,13 +9,18 @@ import { loadAppData, saveAppData } from './storage';
 import type { Medication, MedicationLog } from './types';
 
 const TABS: { key: TabKey; label: string }[] = [
-  { key: 'dashboard', label: 'Dashboard' },
-  { key: 'medication', label: 'Add Medication' },
-  { key: 'history', label: 'History' },
-  { key: 'settings', label: 'Settings' }
+  { key: 'dashboard', label: 'Início' },
+  { key: 'medication', label: 'Cadastrar medicamento' },
+  { key: 'history', label: 'Histórico' },
+  { key: 'settings', label: 'Configurações' }
 ];
 
-const formatDateKey = (isoDate: string) => new Date(isoDate).toISOString().slice(0, 10);
+const formatDateKey = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 const generateId = () =>
   typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
@@ -49,12 +54,12 @@ function App() {
       return;
     }
 
-    const timeoutId = window.setTimeout(() => setToastMessage(null), 2000);
+    const timeoutId = window.setTimeout(() => setToastMessage(null), 2200);
     return () => window.clearTimeout(timeoutId);
   }, [toastMessage]);
 
   useEffect(() => {
-    document.title = `MedTrack • ${TABS.find((tab) => tab.key === activeTab)?.label ?? 'Dashboard'}`;
+    document.title = `MedTrack • ${TABS.find((tab) => tab.key === activeTab)?.label ?? 'Início'}`;
   }, [activeTab]);
 
   const addMedication = (payload: Omit<Medication, 'id' | 'createdAt'>) => {
@@ -65,28 +70,46 @@ function App() {
     };
 
     setMedications((current) => [medication, ...current]);
-    setToastMessage('Medication added.');
+    setToastMessage('Medicamento cadastrado com sucesso.');
     setActiveTab('dashboard');
   };
 
-  const logMedicationNow = (medicationId: string) => {
+  const createLog = (medicationId: string, timestamp: string) => {
     const newLog: MedicationLog = {
       id: generateId(),
       medicationId,
-      timestamp: new Date().toISOString()
+      timestamp
     };
 
     setLogs((currentLogs) => [newLog, ...currentLogs]);
-    setToastMessage('Dose logged.');
+  };
+
+  const logMedicationNow = (medicationId: string) => {
+    createLog(medicationId, new Date().toISOString());
+    setToastMessage('Dose registrada agora.');
+  };
+
+  const logMedicationManual = (medicationId: string, date: string, time?: string) => {
+    const safeTime = time && time.trim() ? time : '12:00';
+    const parsed = new Date(`${date}T${safeTime}`);
+    const now = new Date();
+
+    if (Number.isNaN(parsed.getTime()) || parsed.getTime() > now.getTime()) {
+      setToastMessage('Data/hora manual inválida.');
+      return;
+    }
+
+    createLog(medicationId, parsed.toISOString());
+    setToastMessage('Batida manual registrada.');
   };
 
   const resetAllData = () => {
     setMedications([]);
     setLogs([]);
-    setToastMessage('All medication data removed.');
+    setToastMessage('Todos os dados foram removidos.');
   };
 
-  const todayKey = formatDateKey(new Date().toISOString());
+  const todayKey = formatDateKey(new Date());
 
   const content = useMemo(() => {
     switch (activeTab) {
@@ -96,6 +119,7 @@ function App() {
             medications={medications}
             logs={logs}
             onQuickLog={logMedicationNow}
+            onManualLog={logMedicationManual}
             todayKey={todayKey}
           />
         );
@@ -111,6 +135,7 @@ function App() {
             medications={medications}
             logs={logs}
             onQuickLog={logMedicationNow}
+            onManualLog={logMedicationManual}
             todayKey={todayKey}
           />
         );
@@ -121,7 +146,7 @@ function App() {
     <div className="app-shell">
       <header className="app-header">
         <h1>MedTrack</h1>
-        <p>Quick daily medication logging.</p>
+        <p>Controle diário de medicamentos sem complicação.</p>
       </header>
 
       <InstallBanner />

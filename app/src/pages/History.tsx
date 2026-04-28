@@ -6,11 +6,11 @@ type HistoryProps = {
 };
 
 const formatDate = (isoDate: string) =>
-  new Date(isoDate).toLocaleString([], {
+  new Date(isoDate).toLocaleString('pt-BR', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
-    hour: 'numeric',
+    hour: '2-digit',
     minute: '2-digit'
   });
 
@@ -18,8 +18,8 @@ export function History({ medications, logs }: HistoryProps) {
   if (logs.length === 0) {
     return (
       <section className="empty-state">
-        <h2>No history yet</h2>
-        <p>When you log a dose, it will appear here with date and time.</p>
+        <h2>Ainda não há histórico</h2>
+        <p>Quando você registrar uma dose, ela aparecerá aqui com data e hora.</p>
       </section>
     );
   }
@@ -30,11 +30,11 @@ export function History({ medications, logs }: HistoryProps) {
 
   return (
     <section className="stack-lg">
-      <h2 className="section-title">Log History</h2>
+      <h2 className="section-title">Histórico de registros</h2>
       <ul className="history-list">
         {sortedLogs.map((log) => (
           <li key={log.id} className="history-item">
-            <strong>{medicationsById.get(log.medicationId)?.name ?? 'Unknown medication'}</strong>
+            <strong>{medicationsById.get(log.medicationId)?.name ?? 'Medicamento não encontrado'}</strong>
             <span>{formatDate(log.timestamp)}</span>
           </li>
         ))}

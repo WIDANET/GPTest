@@ -250,6 +250,38 @@ button {
   color: #123a59;
 }
 
+
+.secondary-button {
+  min-height: 44px;
+  padding: 0.65rem 0.9rem;
+  font-weight: 700;
+  background: #dcefff;
+  color: #0f3a5c;
+}
+
+.manual-log-grid {
+  margin-top: 0.35rem;
+  display: grid;
+  gap: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed #b8d7ee;
+}
+
+.manual-title {
+  color: #365c77;
+  font-size: 0.9rem;
+}
+
+.manual-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.manual-fields label {
+  font-size: 0.86rem;
+}
+
 @media (min-width: 768px) {
   .bottom-nav {
     left: 50%;
